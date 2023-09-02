@@ -1,1 +1,0 @@
-<?php $secondsAmountToSendNotification = 1;?>
