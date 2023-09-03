@@ -1,1 +1,0 @@
-<?php $sendUserRemoveNotifications = true;?>
