@@ -1,1 +1,0 @@
-<?php $managerBlockSystem = false;?>
