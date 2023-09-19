@@ -12,7 +12,7 @@ require "utils/permission_check.php";
 if ($permission == false)
    die("permission problem"); 
 
-$date =  $_POST["date"]. "00";
+$date =  $_POST["date"];
 $cmd = "DELETE FROM EmptyQueue WHERE Time = '$date'";
 $query = mysqli_query($conn,$cmd);
 if (!$query)
