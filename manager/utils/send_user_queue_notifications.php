@@ -1,0 +1,1 @@
+<?php $sendUserQueueNotifications = true;?>
