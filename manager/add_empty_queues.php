@@ -27,23 +27,22 @@ else
         $datesList = substr($datesList, 8);
     }
     $values = substr($values, 0, -1); //remove the last char ","
-    $cmd = "INSERT INTO EmptyQueue VALUES $values";
-    $conn->begin_transaction();
-    $query = mysqli_query($conn,$cmd);
-    if ($query)
+    try
     {
-        $rowInserted = $conn -> affected_rows;
-        $cmd = "SELECT ReservedQueue.Time FROM ReservedQueue JOIN EmptyQueue 
-                 ON ReservedQueue.Time = EmptyQueue.Time";
+        $cmd = "INSERT INTO EmptyQueue VALUES $values";
+        $conn->begin_transaction();
         $query = mysqli_query($conn,$cmd);
-        $res = mysqli_fetch_assoc($query);
-        if ($res['Time'] )
-            die("reservedQueueExistInThisDates");
-         $conn->commit();
-         echo $rowInserted;
+        if (!$query)
+            die ("cmd failed"); 
     }
-    else
-      echo("emptyQueueExistInThisDates");
+    catch(Exception $e)
+        {die ("emptyQueueExistInThisDates");}
+    $rowInserted = $conn -> affected_rows;
+    $cmd = "SELECT ReservedQueue.Time FROM ReservedQueue JOIN EmptyQueue ON ReservedQueue.Time = EmptyQueue.Time";
+    if (checkIfExist($conn,$cmd))
+        die("reservedQueueExistInThisDates");
+    $conn->commit();
+    echo $rowInserted;
 }
 
 function createSameDayValues($timeBetweenQueues, $startTime,$endTime)//firstTime and secondTime are the same
@@ -72,6 +71,18 @@ function addSpaceToDate($timeNum,$space)
             $min = $min - 60;
     }
      return $date * 10000 + $hours * 100 + $min;
+}
+
+function checkIfExist($conn,$cmd)
+{
+    $query = mysqli_query($conn,$cmd);
+    if (!$query)
+        die("cmd failed");
+    $res = mysqli_fetch_assoc($query);
+    if ($res['Time'])
+       return true;
+    else
+       return false;
 }
 
 ?>
