@@ -16,6 +16,8 @@ else
 {
     $date = new DateTime("now", new DateTimeZone('Asia/Jerusalem') );
     $timeStamp =  $date->format('Y-m-d H:i:').'00';
+    $cmd = "DELETE FROM `EmptyQueue` WHERE `Time` < '$timeStamp'";
+    mysqli_query($conn,$cmd);
     $cmd = "SELECT Time FROM EmptyQueue WHERE Time >= '$timeStamp' ";
     $res = mysqli_query($conn,$cmd);
     if($res)
