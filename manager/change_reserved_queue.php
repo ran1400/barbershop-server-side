@@ -50,11 +50,11 @@ if ($addToEmptyQueue == "yes")
 }
 require "utils/send_user_queue_notifications.php";
 if ($sendUserQueueNotifications)
-    sendNotificationToUser($prevQueue,$userMail);
+    sendNotificationAndMailToUser($newQueue,$prevQueue,$userMail);
 $conn->commit();
 echo 'V';
 
-function sendNotificationToUser($prevQueue,$userMail)
+function sendNotificationAndMailToUser($newQueue,$prevQueue,$userMail)
 {
     $year = substr($prevQueue,0,4);
     $month = substr($prevQueue,5,2);
@@ -64,6 +64,14 @@ function sendNotificationToUser($prevQueue,$userMail)
     $notiTitle = "התור שלך שונה על ידי המנהל";
     require "utils/send_notification_to_user.php";
     sendFCM($userMail,'queuesUpdates',$notiTitle,$notiBody);
+    $year = substr($newQueue,0,4);
+    $month = substr($newQueue,4,2);
+    $day = substr($newQueue,6,2);
+    $hour = substr($newQueue,8,2);
+    $min = substr($newQueue,10,2);
+    $mailTitle = "התור שלך במספרה שונה על ידי המנהל";
+    $mailBody = $notiBody . " ל " . $day.".".$month.".".$year." בשעה ".$hour . ":" . $min ; 
+    mail($userMail,$mailTitle,$mailBody);
 }
 
 function checkIfExist($conn,$cmd)

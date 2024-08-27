@@ -56,7 +56,7 @@ if ($query && $conn->affected_rows == 1)
 {
    require "utils/send_user_queue_notifications.php";
     if ($sendUserQueueNotifications)
-        sendNotificationToUser($newDate,$userMail);
+        sendNotificationAndMailToUser($newDate,$userMail);
     $conn->commit();  
     echo 'V';
 }
@@ -74,7 +74,7 @@ function checkIfExist($conn,$cmd)
        return false;
 }
 
-function sendNotificationToUser($date,$userMail)
+function sendNotificationAndMailToUser($date,$userMail)
 {
     $year = substr($date,0,4);
     $month = substr($date,4,2);
@@ -85,6 +85,9 @@ function sendNotificationToUser($date,$userMail)
     $notiTitle = "נקבע לך תור חדש";
     require "utils/send_notification_to_user.php";
     sendFCM($userMail,'queuesUpdates',$notiTitle,$notiBody);
+    $mailTitle = "נקבע לך תור חדש במספרה";
+    $mailBody = "נקבע לך תור חדש במספרה " . $notiBody;
+    mail($userMail,$mailTitle,$mailBody);
 }
 
 ?>

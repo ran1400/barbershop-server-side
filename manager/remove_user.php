@@ -59,7 +59,7 @@ if ((!$query) || $conn->affected_rows != 1)
 
 require "utils/send_user_remove_notifications.php";
 if ($sendUserRemoveNotifications)
-    sendNotificationToUser($userMail);
+    sendNotificationAndMailToUser($userMail);
 $conn->commit();
 echo 'V';
 
@@ -75,11 +75,12 @@ function checkIfExist($conn,$cmd)
        return false;
 }
 
-function sendNotificationToUser($userMail)
+function sendNotificationAndMailToUser($userMail)
 {
     $notiTitle = "החשבון שלך נמחק על ידי המנהל";
     $notiBody = "מחיקת החשבון כוללת מחיקת תורים עתידיים";
     require "utils/send_notification_to_user.php";
     sendFCM($userMail,'other',$notiTitle,$notiBody);
+    mail($userMail,"החשבון שלך במספרה נמחק על ידי המנהל",$notiBody);
 }
 ?>

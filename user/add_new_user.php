@@ -36,6 +36,7 @@ $query = mysqli_query($conn,$cmd);
 if ($query && $conn->affected_rows == 1)
 {
     $conn->commit();
+    mail($userMail,"ברוך הבא למספרה","");
     echo $secretKey;
 }
 else

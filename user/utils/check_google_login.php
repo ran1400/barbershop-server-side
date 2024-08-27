@@ -30,7 +30,8 @@ function checkGoogleLogin($idToken)
         if ($aud) // success login
         {
             if ($aud != "256273489041-5gomh891qc8b5m1kpsoi4tm9equ4orp4.apps.googleusercontent.com") // the login was to my app 
-                return false;
+                if ($aud != "952791177175-4k8gve54jhvps9v3rv9s761coh3kkjqg.apps.googleusercontent.com") //the login was to my website
+                    return false;
             $email = $responseObject->email;
             return $email;
         }

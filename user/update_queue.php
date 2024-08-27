@@ -51,20 +51,22 @@ if ($prevDate) //there are reserved queue
     $query = mysqli_query($conn,$cmd);
     if ( (!$query) ||  $conn->affected_rows != 1)
         die("cmd failed");
+    $datesString = makeDatesString($prevDate,$newDate); // make this string  "prevQueue" -> "newQueue" (formet : dd.mm.yy hh:mm)
+    sendMailToUser($userMail,$datesString);
     $timeStamp = new DateTime("now", new DateTimeZone('Asia/Jerusalem') );
     $timeStamp =  $timeStamp->format('Y-m-d H:i:').'00';
     require 'utils/to_send_notification.php';
     if (toSendNotification($prevDate,$timeStamp))
-            sendNotification($_POST["userName"],$prevDate,$newDate);
+            sendNotification($_POST["userName"],$datesString);
     else if (toSendNotification($newDate,$timeStamp))
-            sendNotification($_POST["userName"],$prevDate,$newDate);
+            sendNotification($_POST["userName"],$datesString);
     $conn->commit(); 
     echo 'V';
 }
 else
   die("cmd failed");
   
-function sendNotification($userName,$prevDate,$newDate)
+function makeDatesString($prevDate,$newDate)
 {
     $year = substr($prevDate,0,4);
     $month = substr($prevDate,5,2);
@@ -76,9 +78,22 @@ function sendNotification($userName,$prevDate,$newDate)
     $day = substr($newDate,8,2);
     $hour =  substr($newDate,11,5);
     $newDateStr = $day.".".$month.".".$year. " " . $hour;
-    $notiTitle = $userName . " עדכן תור";
-    $notiBody = $prevDateStr . " -> " . $newDateStr;
-    require "utils/send_notification_to_manager.php";
-    sendFCM('userUpdateQueue',$notiTitle,$notiBody);
+    $res = $prevDateStr . " -> " . $newDateStr;
+    return $res;
 }
+
+function sendMailToUser($userMail,$datesString)
+{
+    $mailTitle = "התור שלך במספרה עודכן";
+    $mailBody = "התור עודכן : " . $datesString;
+    mail($userMail,$mailTitle,$mailBody);
+}
+  
+function sendNotification($userName,$datesString)
+{
+    require "utils/send_notification_to_manager.php";
+    $notiTitle = $userName . " עדכן תור";
+    sendFCM('userUpdateQueue',$notiTitle,$datesString);
+}
+
 ?>

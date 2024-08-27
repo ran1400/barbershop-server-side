@@ -27,7 +27,7 @@ else
     {
         require 'utils/send_notification_to_user.php';
         while ($row = mysqli_fetch_array($query))
-            sendNotificationToUser($row['UserMail'],$row['Time']);
+            sendNotificationAndMailToUser($row['UserMail'],$row['Time']);
     }
     $deleteCmd = "DELETE FROM ReservedQueue WHERE Time > '$timeStamp' AND Time BETWEEN '$firstDate' AND '$secondDate'";
     $query = mysqli_query($conn,$deleteCmd);
@@ -39,7 +39,7 @@ else
 }
 
   
-function sendNotificationToUser($userMail,$queue)
+function sendNotificationAndMailToUser($userMail,$queue)
 {
     $year = substr($queue,0,4);
     $month = substr($queue,5,2);
@@ -48,6 +48,7 @@ function sendNotificationToUser($userMail,$queue)
     $notiBody = "התור שלך ב ".$day.".".$month.".".$year." בשעה ".$hour . " בוטל" ;
     $notiTitle = "מצטערים,התור שלך בוטל על ידי המנהל";
     sendFCM($userMail,'queuesUpdates',$notiTitle,$notiBody);
+    mail($userMail,"התור שלך במספרה בוטל על ידי המנהל",$notiBody);
 }
 
 

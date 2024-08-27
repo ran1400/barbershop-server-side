@@ -40,16 +40,17 @@ if ((!$query) || $conn->affected_rows != 1)
         die("cmd failed");
 require "utils/send_user_block_notifications.php";
 if ($sendUserBlockNotifications)
-    sendNotificationToUser($userMail);
+    sendNotificationAndMailToUser($userMail);
 $conn->commit();
 echo 'V';
 
-function sendNotificationToUser($userMail)
+function sendNotificationAndMailToUser($userMail)
 {
-    $notiTitle = "החשבון שלך נחסם על ידי המנהל";
-    $notiBody = "חסימת החשבון כוללת מחיקת תורים עתידיים";
+    $title = "החשבון שלך נחסם על ידי המנהל";
+    $body = "חסימת החשבון כוללת מחיקת תורים עתידיים";
     require "utils/send_notification_to_user.php";
-    sendFCM($userMail,'other',$notiTitle,$notiBody);
+    sendFCM($userMail,'other',$title,$body);
+    mail($userMail,"החשבון שלך במספרה נחסם על ידי המנהל",$body);
 }
 
 ?>

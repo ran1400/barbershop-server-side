@@ -4,7 +4,7 @@ $idToken = $_POST['idToken'];
 require "utils/check_google_login.php";
 $userMail = checkGooglelogin($idToken);
 if($userMail == false)
-    die ("X");
+    die("X");
 else
 {
     require "utils/connect.php";

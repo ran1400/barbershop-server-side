@@ -26,7 +26,7 @@ if ($query && $conn->affected_rows == 1)
     {
         require "utils/send_user_queue_notifications.php";
         if ($sendUserQueueNotifications)
-            sendNotificationToUser($date,$userMail);
+            sendNotificationAndMailToUser($date,$userMail);
         $conn->commit();
         echo 'V';
     }
@@ -36,7 +36,7 @@ if ($query && $conn->affected_rows == 1)
 else
        echo("cmd failed");
 
-function sendNotificationToUser($date,$userMail)
+function sendNotificationAndMailToUser($date,$userMail)
 {
     $year = substr($date,0,4);
     $month = substr($date,5,2);
@@ -46,6 +46,7 @@ function sendNotificationToUser($date,$userMail)
     $notiTitle = "מצטערים,התור שלך בוטל על ידי המנהל";
     require "utils/send_notification_to_user.php";
     sendFCM($userMail,'queuesUpdates',$notiTitle,$notiBody);
+    mail($userMail,"התור שלך במספרה בוטל על ידי המנהל",$notiBody);
 }
 
 ?>
