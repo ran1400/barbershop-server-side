@@ -3,7 +3,7 @@
 function sendFCM($channel,$title,$body) 
 {
     $url = 'https://fcm.googleapis.com/fcm/send';
-    $apiKey = "Authorization:key=censored";
+    $apiKey = "Authorization:key=censored;
     $headers = array ($apiKey,'Content-Type:application/json');
     $notifData = [
     'title' => $title ,

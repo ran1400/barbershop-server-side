@@ -1,11 +1,10 @@
 <?php
 
 $servername = "localhost";
-$username = "u902940937_ran140009g";
+$username = "u449623999_ran";
 $password = "censored";
-$database = "u902940937_barbershop";
+$database = "u449623999_barbershp";
 
 $conn = new mysqli($servername, $username, $password, $database);
-
 
 ?>
