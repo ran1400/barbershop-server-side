@@ -12,7 +12,7 @@ if ($permission == false)
    die("permission problem"); 
    
 $msg =  $_POST["msg"];
-$msgFile = fopen("/home/u902940937/domains/ran-yehezkel.online/public_html/barbershop/commands/user/utils/msg.php", "w") or die("cmd failed");
+$msgFile = fopen("../user/utils/msg.php", "w") or die("cmd failed");
 $fileText = "<?php \$msg = '" .$msg. "';?>";
 fwrite($msgFile, $fileText);
 fclose($msgFile);

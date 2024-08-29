@@ -9,7 +9,7 @@ if ($permission == false)
    die("permission problem"); 
    
 $sendNotifications =  $_POST["sendNotifications"];
-$file = fopen("/home/u902940937/domains/ran-yehezkel.online/public_html/barbershop/commands/manager/utils/send_user_unblock_notifications.php", "w") or die("cmd failed");
+$file = fopen("utils/send_user_unblock_notifications.php", "w") or die("cmd failed");
 $fileContent = "<?php \$sendUserUnblockNotifications = " .$sendNotifications. ";?>";
 fwrite($file, $fileContent);
 fclose($file);

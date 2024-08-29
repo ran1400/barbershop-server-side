@@ -4,7 +4,7 @@ function sendFCM($userMail,$channel,$title,$body)
 {
     $topic = explode("@",$userMail)[0];
     $url = 'https://fcm.googleapis.com/fcm/send';
-    $apiKey = "Authorization:key=censored";
+    $apiKey = "Authorization:key=AAAAO6sXHJE:APA91bGIQKppTa4hxgJiOd3XGT46m7axls80Oj0XCYNqbwC1NTdk5xHSy7cCbrPAvA_--ip4Z6UdsoxPVMzIwF7p5x_orNqKQ9ILMCps4mWGg9ofmwNo6ACM7Q2XRwQ5h0IsyaiCF1gZ";
     $headers = array ($apiKey,'Content-Type:application/json');
     $notifData = [
     'title' => $title ,

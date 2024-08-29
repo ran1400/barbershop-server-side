@@ -9,7 +9,7 @@ if ($permission == false)
    die("permission problem"); 
    
 $seconds =  $_POST["seconds"];
-$file = fopen("/home/u902940937/domains/ran-yehezkel.online/public_html/barbershop/commands/user/utils/seconds_amount_to_send_notification.php", "w") or die("cmd failed");
+$file = fopen("../user/utils/seconds_amount_to_send_notification.php", "w") or die("cmd failed");
 $fileContent = "<?php \$secondsAmountToSendNotification = " .$seconds. ";?>";
 fwrite($file, $fileContent);
 fclose($file);
