@@ -4,3 +4,4 @@ manager/utils/permission_check.php
 manager/utils/send_notification_to_user.php
 user/utils/send_notification_to_manager.php
 sql.php
+send_mail.php
