@@ -3,5 +3,6 @@ manager/utils/connect.php
 manager/utils/permission_check.php
 manager/utils/send_notification_to_user.php
 user/utils/send_notification_to_manager.php
+user/utils/service-account-file-manager.json
 sql.php
 send_mail.php
