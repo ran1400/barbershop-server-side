@@ -2,5 +2,5 @@
 manager/utils/connect.php
 manager/utils/permission_check.php
 manager/utils/send_notification_to_user.php
-user/utils/connect.php
 user/utils/send_notification_to_manager.php
+sql.php
