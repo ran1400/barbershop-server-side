@@ -12,8 +12,8 @@ require "../user/utils/send_notification_to_manager.php";
 $title = $_POST["title"];
 $body = $_POST["body"];
 
-if (sendFCM('',$title,$body) === false)
-    die(json_encode(["error" => "cmd failed"])); 
+if (sendFCM('testMsg',$title,$body) === false)
+    die(json_encode(["error" => "cmd failed : send notification"])); 
 echo json_encode(["error" => "no"]); 
     
 

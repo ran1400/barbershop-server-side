@@ -112,7 +112,7 @@ function sendQueueNotificationToUser($notiBody,$userMail)
 {
     $notiTitle = "מצטערים,התור שלך בוטל על ידי המנהל";
     require_once "utils/send_notification_to_user.php";
-    return sendFCM($userMail,'queuesUpdates',$notiTitle,$notiBody);
+    return sendFCM($userMail,'other',$notiTitle,$notiBody);
 }
       
 function sendQueueMailToUser($mailContent,$userMail)
