@@ -11,8 +11,11 @@ require "../user/utils/send_notification_to_manager.php";
 
 $title = $_POST["title"];
 $body = $_POST["body"];
-
-if (sendFCM('testMsg',$title,$body) === false)
+if ($_POST["quiteMsg"])
+   $channel = "quiteTestMsg";
+else 
+   $channel = "testMsg";
+if (sendFCM($channel,$title,$body) === false)
     die(json_encode(["error" => "cmd failed : send notification"])); 
 echo json_encode(["error" => "no"]); 
     

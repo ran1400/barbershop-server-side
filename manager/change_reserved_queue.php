@@ -45,7 +45,7 @@ if ( $queuesThatUpdate != 1)
     
 $addToEmptyQueue = $_POST["addToEmptyQueue"];
     
-if ($addToEmptyQueue == "yes")
+if ($addToEmptyQueue)
 {
     $query = "INSERT INTO EmptyQueue VALUE (?)";
     $queuesInserted = runExecQuery($conn,$query,[$prevQueue]);
